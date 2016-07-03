@@ -1,0 +1,75 @@
+//plugins {
+//    id "nebula.provided-base" version "3.1.0"
+//    id "nebula.optional-base" version "3.1.0"
+//}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'idea'
+
+
+group = 'com.discoverorg.sample.completionservice'
+version = '1.0-SNAPSHOT'
+
+description = "The difference between  Normal Executor Service and Completion Service is visible at runtime, Normal Executor Service always waits  for the next thread to finish the job before printing the number, the client needs to wait until a big bunch of threads return all together.\n" +
+        "Completion Service is behaving differently, it follows a producer/consumer philosophy: as soon a thread is done, it puts the result into a non blocking queue so that the consumer can take it."
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+
+//def depVar =
+dependencies {
+    compile group: 'com.google.guava', name: 'guava', version: '19.0'
+    compile "org.projectlombok:lombok:1.16.8"
+//    provided "org.projectlombok:lombok:1.16.8"
+    testCompile 'junit:junit:4.12'
+    testCompile group: 'org.hamcrest', name: 'java-hamcrest', version: '2.0.0.0'
+}
+//depVar
+
+idea {
+
+    //if you want parts of paths in resulting files (*.iml, etc.) to be replaced by variables (Files)
+//    pathVariables GRADLE_HOME: file('~/cool-software/gradle')
+
+    module {
+        //if for some reason you want to add an extra sourceDirs
+//        sourceDirs += file('some-extra-source-folder')
+
+        //and some extra test source dirs
+//        testSourceDirs += file('some-extra-test-dir')
+
+        //and hint to mark some of existing source dirs as generated sources
+//        generatedSourceDirs += file('some-extra-source-folder')
+
+        //and some extra dirs that should be excluded by IDEA
+//        excludeDirs += file('some-extra-exclude-dir')
+
+        //if you don't like the name Gradle has chosen
+//        name = 'some-better-name'
+
+        //if you prefer different output folders
+//        inheritOutputDirs = false
+//        outputDir = file('muchBetterOutputDir')
+//        testOutputDir = file('muchBetterTestOutputDir')
+
+        //if you prefer different SDK than the one inherited from IDEA project
+        jdkName = '1.8'
+
+        //if you need to put 'provided' dependencies on the classpath
+//        scopes.PROVIDED.plus += [ configurations.provided ]
+
+        //if 'content root' (as IDEA calls it) of the module is different
+//        contentRoot = file('my-module-content-root')
+
+        //if you love browsing Javadoc
+        downloadJavadoc = true
+
+        //and hate reading sources :)
+        downloadSources = false
+    }
+}
