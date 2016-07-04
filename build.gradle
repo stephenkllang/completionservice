@@ -25,6 +25,13 @@ repositories {
 dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '19.0'
     compile "org.projectlombok:lombok:1.16.8"
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.7.5'
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+//    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.7.5'
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.5'
+
 //    provided "org.projectlombok:lombok:1.16.8"
     testCompile 'junit:junit:4.12'
     testCompile group: 'org.hamcrest', name: 'java-hamcrest', version: '2.0.0.0'

@@ -1,6 +1,10 @@
 package com.kinlab;
 
-import org.hamcrest.Matchers;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,6 +19,39 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
  * Created by Stephen Lang on 0001, July, 1, 2016.
  */
 public class SubClassDelegateTest {
+    @Test
+    public void subClassDelegateTest() throws Exception {
+
+        SubClassDelegateImpl subClassDelegate = SubClassDelegateImpl.getInstance(baseEntity);
+        assertThat(subClassDelegate.getDescription(), equalTo(description));
+        assertThat(subClassDelegate.isLocked(), equalTo(new Boolean(true)));
+        assertThat(subClassDelegate.isEmail(), equalTo(new Boolean(false)));
+//        assertThat(subClassDelegate.getEmail(), equalTo(null));
+        assertThat(subClassDelegate.getAnotherEntity(), equalTo(anotherEntity));
+        assertThat(subClassDelegate.getAnotherEntities(), hasSize(1));
+//        System.out.println(subClassDelegate.toString());
+    }
+
+    @Test
+    public void jsonTest() throws Exception {
+            // Create the node factory that gives us nodes.
+//            JsonNodeFactory factory = new JsonNodeFactory(false);
+//            // create a json factory to write the treenode as json. for the example
+//            // we just write to console
+//            JsonFactory jsonFactory = new JsonFactory();
+//            JsonGenerator generator = jsonFactory.createGenerator(System.out);
+            ObjectMapper mapper = new ObjectMapper();
+
+            // the root node - album
+//            JsonNode album = factory.objectNode();
+//            mapper.writeTree(generator, album);
+        SubClassDelegateImpl subClassDelegate = SubClassDelegateImpl.getInstance(baseEntity);
+        String json = mapper.writeValueAsString(subClassDelegate);
+        System.out.println(json);
+
+
+    }
+
     private BaseEntity baseEntity;
     private String email = "email";
     private String name = "name";
@@ -31,23 +68,10 @@ public class SubClassDelegateTest {
         anotherEntities.add(anotherEntity);
         baseEntity = new BaseEntity(email, name, description, isGood, anotherEntity, anotherEntities);
 
-
-    }
-
-    @Test
-    public void subClassDelegateTest() throws Exception {
-        SubClassDelegate subClassDelegate = new SubClassDelegate(baseEntity);
-        assertThat(subClassDelegate.getDescription(), equalTo(description));
-        assertThat(subClassDelegate.isLocked(), equalTo(new Boolean(true)));
-        assertThat(subClassDelegate.getAnotherEntity(), equalTo(anotherEntity));
-        assertThat(subClassDelegate.getAnotherEntities(), hasSize(1));
-
     }
 
 
 
-    @Test
-    public void copyTest() {
-//        assertThat(theBiscuit, is(equalTo(myBiscuit))); assertThat(theBiscuit, is(myBiscuit));
-    }
+
+
 }

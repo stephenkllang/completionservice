@@ -1,5 +1,7 @@
 package com.kinlab;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,9 +15,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@JsonFormat
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class BaseEntity {
     private String email, name, description;
-    private Boolean isGood;
+    private boolean good;
     private AnotherEntity anotherEntity;
     private List<AnotherEntity> anotherEntities;
 }
