@@ -21,5 +21,5 @@ public class BaseEntity {
     private String email, name, description;
     private boolean good;
     private AnotherEntity anotherEntity;
-    private List<AnotherEntity> anotherEntities;
+    private List<String> text;
 }

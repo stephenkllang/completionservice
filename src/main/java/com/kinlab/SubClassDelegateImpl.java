@@ -1,54 +1,41 @@
 package com.kinlab;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
  * Created by Stephen Lang on 0003, July, 3, 2016.
+ * Use Idea to create delegate method only for super class attributes
+ *     except those overloaded by boolean with the same name.
+ *     Do not create delegate for toString(), hash, etc.
+ * Use Idea to create getter for boolean overloading super class attributes
+ *
  */
-//@RequiredArgsConstructor(staticName="newInstance")
+@RequiredArgsConstructor(staticName="getInstance")
 //@Data(staticConstructor="getInstance")
 @ToString
-
 public class SubClassDelegateImpl extends BaseEntity implements SubClassDelegate {
     private final BaseEntity baseEntity;
+    @Getter
     private boolean email = false;
 
-    private SubClassDelegateImpl(final BaseEntity baseEntity) {
-        this.baseEntity = baseEntity;
-    }
+//    public boolean isEmail() {
+//        return email;
+//    }
 
-    public static SubClassDelegateImpl getInstance(final BaseEntity baseEntity) {
-        baseEntity.setEmail(null);
-        return new SubClassDelegateImpl(baseEntity);
-    }
-
-    public boolean isEmail() {
-        return email;
-    }
-
-    public void setEmail(boolean email) {
-        this.email = email;
-    }
-
-    @PostConstruct
-    public void onConstructor () {
-//        Calendar.getInstance();
-            System.out.println("onConstructor");
-    }
-
-    @Override
-    public String getEmail() {
-        return baseEntity.getEmail();
-    }
-
-    @Override
-    public String getName() {
-        return baseEntity.getName();
-    }
-
+    //    private SubClassDelegateImpl(final BaseEntity baseEntity) {
+//        this.baseEntity = baseEntity;
+//    }
+//
+//    public static SubClassDelegateImpl getInstance(final BaseEntity baseEntity) {
+//        return new SubClassDelegateImpl(baseEntity);
+//    }
+//
     @Override
     public String getDescription() {
         return baseEntity.getDescription();
@@ -66,23 +53,23 @@ public class SubClassDelegateImpl extends BaseEntity implements SubClassDelegate
     }
 
     @Override
-    public List<AnotherEntity> getAnotherEntities() {
-        return baseEntity.getAnotherEntities();
+    public List<String> getText() {
+        return baseEntity.getText();
     }
 
     @Override
-    public void setEmail(String email) {
-        baseEntity.setEmail(email);
-    }
-
-    @Override
-    public void setName(String name) {
-        baseEntity.setName(name);
+    public void setText(List<String> text) {
+        baseEntity.setText(text);
     }
 
     @Override
     public void setDescription(String description) {
         baseEntity.setDescription(description);
+    }
+
+    @Override
+    public String getName() {
+        return baseEntity.getName();
     }
 
     @Override
@@ -94,30 +81,5 @@ public class SubClassDelegateImpl extends BaseEntity implements SubClassDelegate
     public void setAnotherEntity(AnotherEntity anotherEntity) {
         baseEntity.setAnotherEntity(anotherEntity);
     }
-
-    @Override
-    public void setAnotherEntities(List<AnotherEntity> anotherEntities) {
-        baseEntity.setAnotherEntities(anotherEntities);
-    }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        return baseEntity.equals(o);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return baseEntity.hashCode();
-//    }
-//
-//    @Override
-//    public boolean canEqual(Object other) {
-//        return baseEntity.canEqual(other);
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return baseEntity.toString();
-//    }
 
 }

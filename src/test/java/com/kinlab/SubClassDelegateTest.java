@@ -9,9 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 
@@ -25,10 +26,11 @@ public class SubClassDelegateTest {
         SubClassDelegateImpl subClassDelegate = SubClassDelegateImpl.getInstance(baseEntity);
         assertThat(subClassDelegate.getDescription(), equalTo(description));
         assertThat(subClassDelegate.isLocked(), equalTo(new Boolean(true)));
-        assertThat(subClassDelegate.isEmail(), equalTo(new Boolean(false)));
+//        assertThat(subClassDelegate.isEmail(), equalTo(new Boolean(false)));
 //        assertThat(subClassDelegate.getEmail(), equalTo(null));
         assertThat(subClassDelegate.getAnotherEntity(), equalTo(anotherEntity));
-        assertThat(subClassDelegate.getAnotherEntities(), hasSize(1));
+        assertThat(subClassDelegate.getText(), hasSize(2));
+        assertThat(subClassDelegate.toString(), containsStringIgnoringCase(baseEntity.getClass().getSimpleName()));
 //        System.out.println(subClassDelegate.toString());
     }
 
@@ -47,6 +49,7 @@ public class SubClassDelegateTest {
 //            mapper.writeTree(generator, album);
         SubClassDelegateImpl subClassDelegate = SubClassDelegateImpl.getInstance(baseEntity);
         String json = mapper.writeValueAsString(subClassDelegate);
+        assertThat(json, not(containsStringIgnoringCase(baseEntity.getClass().getSimpleName())));
         System.out.println(json);
 
 
@@ -56,17 +59,15 @@ public class SubClassDelegateTest {
     private String email = "email";
     private String name = "name";
     private String description = "description";
-    private Boolean isGood = true;
+    private Boolean isGood = false;
     private String anotherDescription = "another description";
     private AnotherEntity anotherEntity;
-    private List<AnotherEntity> anotherEntities;
+    private String[] text = {"aaa", "bbb"};
 
     @Before
     public void setUp() throws Exception {
         anotherEntity = new AnotherEntity(anotherDescription);
-        anotherEntities = new ArrayList<>();
-        anotherEntities.add(anotherEntity);
-        baseEntity = new BaseEntity(email, name, description, isGood, anotherEntity, anotherEntities);
+        baseEntity = new BaseEntity(email, name, description, isGood, anotherEntity, Arrays.asList(text));
 
     }
 
