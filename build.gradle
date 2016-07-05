@@ -21,7 +21,6 @@ repositories {
 }
 
 
-//def depVar =
 dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '19.0'
     compile "org.projectlombok:lombok:1.16.8"
@@ -36,7 +35,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile group: 'org.hamcrest', name: 'java-hamcrest', version: '2.0.0.0'
 }
-//depVar
 
 idea {
 

@@ -1,1 +1,3 @@
 rootProject.name = 'completionservice'
+include 'dorg-oas'
+

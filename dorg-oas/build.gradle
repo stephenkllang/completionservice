@@ -1,0 +1,28 @@
+group 'com.discoverorg.sample.completionservice'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'idea'
+
+description = "The difference between  Normal Executor Service and Completion Service is visible at runtime, Normal Executor Service always waits  for the next thread to finish the job before printing the number, the client needs to wait until a big bunch of threads return all together.\n" +
+        "Completion Service is behaving differently, it follows a producer/consumer philosophy: as soon a thread is done, it puts the result into a non blocking queue so that the consumer can take it."
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    compile "org.projectlombok:lombok:1.16.8"
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.5'
+    testCompile 'junit:junit:4.12'
+    testCompile group: 'org.hamcrest', name: 'java-hamcrest', version: '2.0.0.0'
+}
+
+idea {
+    module {
+        jdkName = '1.8'
+   }
+}
